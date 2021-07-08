@@ -158,16 +158,19 @@ a given dataset and that there's multiple pipelines that implement the same anal
     
 \subsection{Assistance for workflow composition}
 
-A few recommender systems were described to assist users with workflow composition, that is, 
-to identify candidate software components to add to a given workflow. For example, the Galaxy tool recommender~\cite{kumar2021tool} recommends possible workflow components using a deep learning model trained on 18,000 bioinformatics workflows from the European Galaxy server. Recommendations depend on the definition and organization of all the tools in the workflow (so-called "higher-order workflow dependencies") instead of focusing on the last ones only. Workflow dependencies are learned using Recurrent Neural Networks, resulting in a mean accuracy of 98\%. The system is available for Galaxy users as an extension. 
+A few recommender systems were described to assist users with workflow composition, that is, to identify candidate software components to add to a given workflow. For example, the Galaxy tool recommender~\cite{kumar2021tool} recommends possible workflow components using a deep learning model trained on 18,000 bioinformatics workflows from the European Galaxy server. Recommendations depend on the definition and organization of all the tools in the workflow (so-called "higher-order workflow dependencies") instead of focusing on the last ones only. Workflow dependencies are learned using Recurrent Neural Networks, resulting in a mean accuracy of 98\%. The system is available for Galaxy users as an extension. 
 
 Previous approaches to assisted workflow composition included loose programming, initially proposed 
-in the PROPHETS system~\cite{lamprecht2010synthesis}\cite{naujokat2012loose}\cite{lamprecht2013user}. Loose programming enables workflow developers to 
-program using concepts rather than accurate procedural code. Loose programming exposes to the workflow developers semantic annotations describing the functionalities of workflow components. Workflow developers can then assemble such components without having to care about correct typing, interface compatibility, platform parameters or other technical details. \TG{how are these technical details handled?} 
-PROPHETS was applied to various bioinformatics use cases, including 
-mass spectrometry-based proteomics~\cite{palmblad2019automated}.
+in the PROPHETS system~\cite{lamprecht2010synthesis,naujokat2012loose,lamprecht2013user}. Loose programming enables workflow developers to program using concepts rather than accurate procedural code. Loose programming exposes to the workflow developers semantic annotations describing the functionalities of workflow components. Workflow developers can then assemble such components without having to care about correct typing, interface compatibility, platform parameters or other technical details. \TG{how are these technical details handled?}
+\MM{ PROPHETS is integrated as a plugin into the jABC framework,
 
-Similarly, the WINGS (Workflow INstance Generation and Specialization) system~\cite{gil2010wings} uses AI planning and semantic reasoners to assist users in creating workflows while validating that the workflows comply with the requirements of the software components and datasets. WINGS can reason about the constraints of the components and the characteristics of the data and propagate them through the workflow structure.
+}
+
+
+PROPHETS was applied to various bioinformatics use cases, including mass spectrometry-based proteomics~\cite{palmblad2019automated}.
+
+Similarly, the WINGS (Workflow INstance Generation and Specialization) system~\cite{gil2010wings} uses AI planning and semantic reasoners to assist users in creating workflows while validating that the workflows comply with the requirements of the software components and datasets. WINGS can reason about the constraints of the components and the characteristics of the data and propagate them through the workflow structure.\MM{in WINGS, the constraints are defined by end user then the generated workflow will be validated and passed to Pegasus to do the execution, monitoring process and resolving possible failures. NOT said HOW?!
+the execution provenance records are stored and accessible after execution :| }
 
 These approaches assist users by matching workflow components together. Instead, in our context, the workflows (or pipelines) are already available and need to be matched to relevant datasets. Conversely, relevant analysis workflows need to be recommended for a given dataset.
 
@@ -281,7 +284,7 @@ be downloaded on demand without having to download the entire dataset.
  datasets were performed to make them fully comply to the standard
  specification. We did not apply any type conversion, to preserve realistic
  usage scenarios for our recommender system. \begin{figure}
-  \includegraphics[width=\columnwidth]{Datasets Keyword.pdf}
+  \includegraphics[width=\columnwidth]{figures/Datasets Keyword.pdf}
   \caption{Modalities of available datasets. \TG{This figure takes too much space. Remove y label "Dataset Keyword"}}
   \label{fig:datasets_modalities}
 \end{figure}
@@ -434,7 +437,7 @@ the motivation for an automated recommender system.
 % that predicted a successful execution for a pair of pipeline and dataset. The color range is dark red to green and white in the middle. To specify more, a dark red cell means 0\% of experts who know the pipeline and the dataset corresponding to that cell, predicted a successful execution; it goes whiter in the middle when the rate of successful and failure predictions get closer to 50\% and ends in green as the successful prediction rate grows up to 100\%. 
 
 \begin{figure}
-  \includegraphics[width=1.25\columnwidth]{Pipeline Execution Level 2.pdf}
+  \includegraphics[width=1.25\columnwidth]{figures/Pipeline Execution Level 2.pdf}
   \caption{Pipeline execution matrix. Green represents successful execution, red represents failures and gray represents pipeline-dataset pairs that were not executed. \TG{remove colorbar and whitespace around the matrix. Use same layout as in Fig 4.}}
   \label{fig:execution_matrix}
 \end{figure}
@@ -454,13 +457,13 @@ for successful ones (p \textless 0.002, Figure
 seem to be largely unreliable.
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{confidence_swarm_experts.pdf}
+  \includegraphics[width=\columnwidth]{figures/confidence_swarm_experts.pdf}
   \caption{Expert confidence by actual execution outcome.}
   \label{fig:confidence_swarm}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{fraction_experts.pdf}
+  \includegraphics[width=\columnwidth]{figures/fraction_experts.pdf}
   \caption{Fraction of experts predicting successful execution. \TG{fix plot and add text}}
   \label{fig:fraction_experts}
 \end{figure}
@@ -506,7 +509,7 @@ contain anatomical images in the MINC format.
 \centering%\rule{0.8\textwidth}{0.3\textwidth}
 \includegraphics[width=\textwidth]{figures/Pipeline dependencies.pdf}
 \caption{Types of pipeline dependencies. In Type D, the tested pipeline 
-is considered not applicable to the tested dataset. \TG{Could you have a ``tested dataset'' and ``other dataset'' icons for Type C similar to what you used for pipelines?}}
+is considered not applicable to the tested dataset.}
 \label{fig:pipeline_dependencies}
 \end{figure*}
 In addition, five pipelines ($P_{8}$, $P_{17}$, $P_{19}$, $P_{20}$ and
@@ -568,7 +571,7 @@ Figure~\ref{fig:execution_matrix} is highly structured.
 
 \begin{figure}
 \centering
-  \includegraphics[width=\columnwidth]{ROC_curve.pdf}
+  \includegraphics[width=\columnwidth]{figures/ROC_curve.pdf}
   \caption{ROC curves of experts and recommender system predictions}
   \label{fig:roc-curve}
 \end{figure}
