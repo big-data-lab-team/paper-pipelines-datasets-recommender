@@ -162,43 +162,64 @@ A few recommender systems were described to assist users with workflow compositi
 
 Previous approaches to assisted workflow composition included loose programming, initially proposed 
 in the PROPHETS system~\cite{lamprecht2010synthesis,naujokat2012loose,lamprecht2013user}. Loose programming enables workflow developers to program using concepts rather than accurate procedural code. Loose programming exposes to the workflow developers semantic annotations describing the functionalities of workflow components. Workflow developers can then assemble such components without having to care about correct typing, interface compatibility, platform parameters or other technical details. \TG{how are these technical details handled?}
-\MM{ PROPHETS is integrated as a plugin into the jABC framework,
-
-}
-
-
+\MM{Compatibility inferred from tool annotation does not, however, guarantee interoperability or a well-working workflow; some tools are optimized for particular datasets and may not work well, or even at all, on other data of the same type and format. It is therefore essential to validate the automatically created workflows on real input data, validating is not completely}
 PROPHETS was applied to various bioinformatics use cases, including mass spectrometry-based proteomics~\cite{palmblad2019automated}.
 
 Similarly, the WINGS (Workflow INstance Generation and Specialization) system~\cite{gil2010wings} uses AI planning and semantic reasoners to assist users in creating workflows while validating that the workflows comply with the requirements of the software components and datasets. WINGS can reason about the constraints of the components and the characteristics of the data and propagate them through the workflow structure.\MM{in WINGS, the constraints are defined by end user then the generated workflow will be validated and passed to Pegasus to do the execution, monitoring process and resolving possible failures. NOT said HOW?!
-the execution provenance records are stored and accessible after execution :| }
+the (failed) execution provenance records are stored and accessible after execution :| }
 
 These approaches assist users by matching workflow components together. Instead, in our context, the workflows (or pipelines) are already available and need to be matched to relevant datasets. Conversely, relevant analysis workflows need to be recommended for a given dataset.
 
 \subsection{Algorithm selection}
-    
-    % hyperparameters
-    Another example is the PennAI~\cite{la2021evaluating} platform that recommends suitable hyperparameters for classification models using a database of \TG{x} previous executions \TG{check that}. Our goal is to recommend entire scientific analysis pipelines to datasets, for which no recommender system is available yet \TG{double check}
 
-% AI models
-1)EVALUATING RECOMMENDER SYSTEMS FOR AI-DRIVEN
-BIOMEDICAL INFORMATICS~\cite{la2021evaluating}
-
-PennAI is platform that uses a bootstrapped recommendation system that automatically conﬁgures and runs supervised learning algorithms catered to the user’s datasets and previous results and recommends suitable hyperparameters for classification models.
-
-They assessed the ability of state-of-the-art recommender systems to learn the best ML algorithm and parameter settings for a given dataset over a set number of iterations in the context of previous results. They compared collaborative ﬁltering (CF) approaches as well as metalearning \MM{can we say content based?} approaches on a set of 165 open-source classiﬁcation
+There are also some recommender systems in the category of algorithm selection.
+% hyperparameters
+PennAI~\cite{la2021evaluating} is platform that uses a bootstrapped recommendation system that automatically conﬁgures and runs supervised learning algorithms catered to the user’s datasets and previous results and recommends suitable hyperparameters for classification models. They assessed the ability of state-of-the-art recommender systems to learn the best ML algorithm and parameter settings for a given dataset over a set number of iterations in the context of previous results. They compared collaborative ﬁltering (CF) approaches as well as metalearning (in the category of content-based filtering~\cite{vartak2017meta}) approaches on a set of 165 open-source classiﬁcation
 problems. They found that matrix factorization-based recommendation systems outperform meta-learning methods for
 automating machine learning.
 
-2)~\cite{tornede2019algorithm}
+% AI models
+Other works exist on predicting the best performance AI model or learning algorithms on a specific dataset. For instance Oracle which is referred as an optimal algorithm selector ~\cite{tornede2019algorithm}, provides the user with automated Algorithm Selection and Model Selection for classiﬁcation. Algorithm Selection uses advanced machine learning and meta-learning techniques on the characteristics of the dataset and task to automatically rank the best k algorithms for a dataset (without tuning). Then, by Model Selection the best algorithm will be tuned by selecting appropriate “hyperparameters” to maximize the performance based on selected score metric.
+
+    % hyperparameters
+    % Another example is the PennAI~\cite{la2021evaluating} platform that recommends suitable hyperparameters for classification models using a database of \TG{x} previous executions \TG{check that}. Our goal is to recommend entire scientific analysis pipelines to datasets, for which no recommender system is available yet \TG{double check}
+
+
+Dyadic approaches~\cite{schafer2018dyad} speciﬁcally dyad ranking~\cite{tornede2019algorithm}, are another alternative for algorithm selection problems, in which each algorithm and problem instance(dataset) are represented by a feature vector. The training dataset would be a set of ranked dyads according to a hidden preference relation which indicates a better performance
+
+and the goal is to learn a joint feature representation of a
+“dyad” consisting of an instance and an algorithm, allows us to learn a single
+joint model
+
+and algorithms Having a training dataset of rankings with an underlying hidden preference relation ≻
+over the space of dyads
+
+
+
+r, instead of a real-valued
+rating matrix ��, we assume a set of rankings over algorithms for the
+instances in the training set to be given. 
+ 
+ proposed to tackle the algorithm selection problem as a dyad ranking
+problem and addressed key questions regarding the creation of training
+datasets and feature representation for both algorithms and datasets. 
+
+More speciﬁcally, we use a feature function fA : A −→ Rd representing
+algorithms as d-dimensional, real-valued feature vectors. Then, instead of learn-
+ing one latent utility model per algorithm, the joint feature representation of a
+“dyad” consisting of an instance and an algorithm, allows us to learn a single
+joint model
+
+mb : fI(I) × fA(A) −→ R, (7)
+
+and hence to estimate the performance of a given algorithm a on a given instance
+
+i in terms of mb(fI(i), fA(a)).
+~\cite{tornede2020extreme}
+
+
 Algorithm Selection as Recommendation: From Collaborative Filtering to Dyad Ranking:
-
-\MM{from paper(as a reason for having a recommender system): 
-Compared to using the algorithm that is best on average
-across an entire class of problem instances, called the single best solver (SBS), selecting a suitable algorithm for each instance separately should result in an increased overall performance. This expectation has been confirmed in recent algorithm selection (AS)
-competitions \cite{bischl2016aslib} }
-
-They proposed the idea of addressing Algorithm Selection (AS) problems as a problem of so-called dyad ranking instead of collaborative filtering. Their approach was motivated by, first, pairs of problem/algorithm as dyads allows the learner
-to exploit properties (features) of both the problem instances and the candidate algorithms. Second, providing recommendations in the form of rankings of a set of candidate algorithms is presumably easier than evaluating each of them in terms of a precise numerical score.
+Another work in algorithm selection was addressing this problems as a problem of so-called dyad ranking instead of collaborative filtering. They considered pairs of problem/algorithm as dyads that allows the learner to exploit properties (features) of both the problem instances and the candidate algorithms. Then providing recommendations in the form of rankings of a set of candidate algorithms is presumably easier than evaluating each of them in terms of a precise numerical score.
 
 
 3)~\cite{bischl2016aslib}
