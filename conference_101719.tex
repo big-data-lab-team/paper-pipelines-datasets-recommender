@@ -162,8 +162,7 @@ A few recommender systems were described to assist users with workflow compositi
 
 Previous approaches to assisted workflow composition included loose programming, initially proposed 
 in the PROPHETS system~\cite{lamprecht2010synthesis,naujokat2012loose,lamprecht2013user}. Loose programming enables workflow developers to program using concepts rather than accurate procedural code. Loose programming exposes to the workflow developers semantic annotations describing the functionalities of workflow components. Workflow developers can then assemble such components without having to care about correct typing, interface compatibility, platform parameters or other technical details. \TG{how are these technical details handled?}
-\MM{Compatibility inferred from tool annotation does not, however, guarantee interoperability or a well-working workflow; some tools are optimized for particular datasets and may not work well, or even at all, on other data of the same type and format. It is therefore essential to validate the automatically created workflows on real input data, validating is not completely}
-PROPHETS was applied to various bioinformatics use cases, including mass spectrometry-based proteomics~\cite{palmblad2019automated}.
+However, compatibility inferred from tool annotation does not guarantee interoperability or a well-working workflow; some tools are optimized for particular datasets and may not work well, or even at all, on other data of the same type and format. It is therefore essential to validate the automatically created workflows on real input data, validating is applied by testing the workflows on real input data. PROPHETS was also applied to various bioinformatics use cases, including mass spectrometry-based proteomics~\cite{palmblad2019automated}.
 
 Similarly, the WINGS (Workflow INstance Generation and Specialization) system~\cite{gil2010wings} uses AI planning and semantic reasoners to assist users in creating workflows while validating that the workflows comply with the requirements of the software components and datasets. WINGS can reason about the constraints of the components and the characteristics of the data and propagate them through the workflow structure.\MM{in WINGS, the constraints are defined by end user then the generated workflow will be validated and passed to Pegasus to do the execution, monitoring process and resolving possible failures. NOT said HOW?!
 the (failed) execution provenance records are stored and accessible after execution :| }
@@ -185,61 +184,12 @@ Other works exist on predicting the best performance AI model or learning algori
     % Another example is the PennAI~\cite{la2021evaluating} platform that recommends suitable hyperparameters for classification models using a database of \TG{x} previous executions \TG{check that}. Our goal is to recommend entire scientific analysis pipelines to datasets, for which no recommender system is available yet \TG{double check}
 
 
-Dyadic approaches speciﬁcally dyad ranking~\cite{tornede2019algorithm}, are another alternative for algorithm selection problems, in which each algorithm and problem instance(dataset) are represented by a feature vector. In the dayad ranking approach the training dataset would be a set of ranked dyads according to a hidden preference relation. To learn the dayad ranker they used PLNet~\cite{schafer2018dyad} algorithm, a neural-network-based algorithm for learning a parametrized probability distribution over rankings, called the Plackett-Luce (PL) model.
-
-Kendall’s tau coefﬁcient (Kendall 1938),
-a rank correlation measure 
-
-While this representation is simple, it
-has the disadvantage of not generalizing well across different algorithms
-that do not share any parameters, as they are essentially represented by
-disjoint subvectors of the original vector 
-
-and the goal is to learn a joint feature representation of a
-“dyad” consisting of an instance and an algorithm, allows us to learn a single
-joint model
-
-and algorithms Having a training dataset of rankings with an underlying hidden preference relation ≻
-over the space of dyads
+Dyadic approaches~\cite{tornede2020extreme} speciﬁcally dyad ranking~\cite{tornede2019algorithm}, are another alternative for algorithm selection problems, in which each algorithm and problem instance(dataset) are represented by a feature vector. In the dayad ranking approach the training dataset would be a set of ranked dyads according to a hidden preference relation (Kendall’s tau coefﬁcient,a rank correlation measure). To learn the dayad ranker, a single joint model, they used PLNet~\cite{schafer2018dyad} algorithm, a neural-network-based algorithm for learning a parametrized probability distribution over rankings, called the Plackett-Luce (PL) model. While this representation is simpler than accurate performance measures and outperforms many algorithm selectors, it has the disadvantage of not generalizing well across different algorithms that do not share any parameters.
 
 
-
-r, instead of a real-valued
-rating matrix ��, we assume a set of rankings over algorithms for the
-instances in the training set to be given. 
- 
- proposed to tackle the algorithm selection problem as a dyad ranking
-problem and addressed key questions regarding the creation of training
-datasets and feature representation for both algorithms and datasets. 
-
-More speciﬁcally, we use a feature function fA : A −→ Rd representing
-algorithms as d-dimensional, real-valued feature vectors. Then, instead of learn-
-ing one latent utility model per algorithm, the joint feature representation of a
-“dyad” consisting of an instance and an algorithm, allows us to learn a single
-joint model
-
-mb : fI(I) × fA(A) −→ R, (7)
-
-and hence to estimate the performance of a given algorithm a on a given instance
-
-i in terms of mb(fI(i), fA(a)).
-~\cite{tornede2020extreme}
+There are also many other approaches for algorithms selection problem, these approaches are mostly designed for computational or machine learning algorithms that would not applicable in our case, since we focus on neuroimaging pipelines and datasets. Moreover, these approches are mostly based on meta-learning on feature representation of pipelines, datasets or both of them, while we are going to rely only on the history of pipeline executions. 
 
 
-Algorithm Selection as Recommendation: From Collaborative Filtering to Dyad Ranking:
-Another work in algorithm selection was addressing this problems as a problem of so-called dyad ranking instead of collaborative filtering. They considered pairs of problem/algorithm as dyads that allows the learner to exploit properties (features) of both the problem instances and the candidate algorithms. Then providing recommendations in the form of rankings of a set of candidate algorithms is presumably easier than evaluating each of them in terms of a precise numerical score.
-
-
-3)~\cite{bischl2016aslib}
-
-4) @inproceedings{malitsky2014latent,
-  title={Latent features for algorithm selection},
-  author={Malitsky, Yuri and O'Sullivan, Barry},
-  booktitle={Seventh Annual Symposium on Combinatorial Search},
-  year={2014}
-}
-
-\TG{at the end of each sub-section, explain why our context is different}
 
 \subsection{Finding tools and datasets in neuroimaging}
 
@@ -456,7 +406,7 @@ large fraction of pipeline-dataset pairs unknown to any expert reinforces
 the motivation for an automated recommender system.
 \begin{figure}
 \centering
-  \includegraphics[width=\columnwidth]{figures/Commented Success Percentage.png}
+  \includegraphics[width=\columnwidth]{figures/Commented Success Percentage.pdf}
   \caption{Experts confidence matrix. Shades of green represent the fraction of experts with good or advanced knowledge about the pipeline and dataset who predicted successful execution. Gray means no data.}
   \label{fig:experts_matrix}
 \end{figure}
@@ -600,7 +550,7 @@ Figure~\ref{fig:execution_matrix} is highly structured.
 
 \begin{figure}
 \centering
-  \includegraphics[width=\columnwidth]{figures/ROC_curve.pdf}
+  \includegraphics[width=\columnwidth]{figures/ROC Curve.pdf}
   \caption{ROC curves of experts and recommender system predictions}
   \label{fig:roc-curve}
 \end{figure}
