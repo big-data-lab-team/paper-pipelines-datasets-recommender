@@ -185,7 +185,15 @@ Other works exist on predicting the best performance AI model or learning algori
     % Another example is the PennAI~\cite{la2021evaluating} platform that recommends suitable hyperparameters for classification models using a database of \TG{x} previous executions \TG{check that}. Our goal is to recommend entire scientific analysis pipelines to datasets, for which no recommender system is available yet \TG{double check}
 
 
-Dyadic approaches~\cite{schafer2018dyad} speciﬁcally dyad ranking~\cite{tornede2019algorithm}, are another alternative for algorithm selection problems, in which each algorithm and problem instance(dataset) are represented by a feature vector. The training dataset would be a set of ranked dyads according to a hidden preference relation which indicates a better performance
+Dyadic approaches speciﬁcally dyad ranking~\cite{tornede2019algorithm}, are another alternative for algorithm selection problems, in which each algorithm and problem instance(dataset) are represented by a feature vector. In the dayad ranking approach the training dataset would be a set of ranked dyads according to a hidden preference relation. To learn the dayad ranker they used PLNet~\cite{schafer2018dyad} algorithm, a neural-network-based algorithm for learning a parametrized probability distribution over rankings, called the Plackett-Luce (PL) model.
+
+Kendall’s tau coefﬁcient (Kendall 1938),
+a rank correlation measure 
+
+While this representation is simple, it
+has the disadvantage of not generalizing well across different algorithms
+that do not share any parameters, as they are essentially represented by
+disjoint subvectors of the original vector 
 
 and the goal is to learn a joint feature representation of a
 “dyad” consisting of an instance and an algorithm, allows us to learn a single
