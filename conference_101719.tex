@@ -132,11 +132,10 @@ these levels must be considered in pipeline or dataset recommendations, moreover
 Provenance is a key concept in computational analyses, referring to the
 detailed description of data transformations. Provenance records include
 information mainly about the raw data used in an experiment, the analysis
-software and parameters, and the execution context. In neuroimaging, the
-Neuro Imaging Data Model (NIDM~\cite{maumet2016sharing}) project proposed domain-specific
+software and parameters, and the execution context. In neuroimaging, the Neuro Imaging Data Model (NIDM~\cite{maumet2016sharing}) project proposed domain-specific
 formats and tools based on standards from the W3C PROV working
 group~\cite{missier2013w3c}. In its current form, our
-recommender system merely relies on execution outcomes (``exit codes")
+recommender system merely relies on execution outcomes ("exit codes")
 extracted from provenance records.
 
 To summarize, this paper makes the following contributions:
@@ -196,7 +195,7 @@ in the remainder of this section with our experimental methodology.
 \begin{figure*}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/Methodology.pdf}%Methodology_May17th.png}
-  \caption{Overview of our recommender system \TG{Export text as vector objects, not bitmaps.}}
+  \caption{Overview of our recommender system }
   \label{fig:method}
   \end{figure*}  
 
@@ -229,9 +228,7 @@ given dataset.
 \subsection{Datasets} 
 
 We used the 42 datasets available in the CONP as of October 2020,
-representing a total of 2807267 files, 3078 GB, and 6330 subjects\MM{should I add this link as a reference?
-%https://github.com/mandana-mazaheri/Pipelines-datasets-recommender-paper/blob/master/result/Pipelines%20and%20Datasets%20Statistics.json
-}
+representing a total of 2807267 files, 3078 GB, and 6330 subjects.
 These datasets included neuroimaging, transcriptomics, genomics, and other
 related data modalities coming from various sources distributed in Canada
 and abroad (Figure~\ref{fig:datasets_modalities}). Datasets are made available through DataLad~\cite{datalad2021},
@@ -246,10 +243,8 @@ DataLad, our system matches provenance records to particular datasets
 through file hashes. In addition, specific files from a given dataset can
 be downloaded on demand without having to download the entire dataset. 
 
- In some cases, minor adjustments such as file renamings or exclusions
-  to the organization of BIDS
- datasets were performed to make them fully comply to the standard
- specification. We did not apply any type conversion, to preserve realistic
+ In some cases, minor adjustments such as file renamings or exclusions to the organization of BIDS datasets were performed to make them fully comply to the standard
+ specification . We did not apply any type conversion, to preserve realistic
  usage scenarios for our recommender system. \begin{figure}
   \includegraphics[width=\columnwidth]{figures/Datasets Keyword.pdf}
   \caption{Modalities of available datasets. Each dataset might have multiple keywords \TG{This figure takes too much space. Remove y label "Dataset Keyword"}}
@@ -370,7 +365,7 @@ We evaluated our approach in two different ways. First,
 we compared the expert predictions to 
 real execution outcomes extracted from provenance records.
 Second, we evaluated 
-the accuracy of our recommender system through 10-fold cross validation. All of the generated provenance records are stored at
+the accuracy of our recommender system through 10-fold cross validation. All of the generated provenance records are stored and accessible at~\cite{provenanceRecords}
 
 \subsection{Expert predictions vs real executions}
 
@@ -401,8 +396,8 @@ the motivation for an automated recommender system.
 % % among all experts that know the pipeline and the dataset corresponding to that cell
 % that predicted a successful execution for a pair of pipeline and dataset. The color range is dark red to green and white in the middle. To specify more, a dark red cell means 0\% of experts who know the pipeline and the dataset corresponding to that cell, predicted a successful execution; it goes whiter in the middle when the rate of successful and failure predictions get closer to 50\% and ends in green as the successful prediction rate grows up to 100\%. 
 
-\begin{figure}
-  \includegraphics[width=1.25\columnwidth]{figures/Pipeline Execution Level 2.pdf}
+\begin{figure}%[width=1.25\columnwidth]
+  \includegraphics[width=\columnwidth]{figures/Pipeline Execution Level 2.pdf}
   \caption{Pipeline execution matrix. Green represents successful execution, red represents failures and gray represents pipeline-dataset pairs that were not executed. \TG{remove colorbar and whitespace around the matrix. Use same layout as in Fig 4.}}
   \label{fig:execution_matrix}
 \end{figure}
@@ -602,8 +597,7 @@ at a finer granularity. Pipelines can often be used in different ways
 depending on their parametrization. Different parametrizations could 
 be identified in the provenance records and recommended accordingly 
 for specific datasets.
-\MM{
-currently we rely on the available provenance record, but we could actively trigger executions to enrich our execution matrix and make more reliable predictions (once we have a functional invocation we can create many execution by varying the parameters (parametrization)) }
+Currently we rely on the available provenance records, but we could actively trigger executions to enrich our execution matrix and make more reliable predictions, more specifically, once we have a functional invocation we can create many provenance records by varying the parameters.
 
 
 Besides, datasets often consist of multiple 
