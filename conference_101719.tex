@@ -182,7 +182,7 @@ All these approaches assume the existence of an objective function such as F1 sc
 \subsection{Finding tools and datasets in neuroimaging}
 
 Several platforms have been developed to facilitate the sharing of tools and datasets 
-in neuroimaging. For instance, NITRC~\cite{kennedy2016nitrc} provides a richly-annotated catalog of tools and datasets that can be processed in the NITRC computing environment. In OpenNeuro~\cite{markiewicz2021openneuro}, datasets complying to the BIDS data structure can be publicly shared and processed using BIDS apps.  Finally, the Neuroscience Information Framework (NIF~\cite{gardner2008neuroscience}) is a powerful search engine for neuroscience software and data. While all these platforms provide substantial services for data and tool sharing, they don't seem to include any system to assist users in the matching of pipelines and datasets. \TG{Check all the cited platforms.} Matching relevant pipelines and datasets would also enable the automated triggering of data processing when new pipelines or datasets become available. 
+in neuroimaging. For instance, NITRC~\cite{kennedy2016nitrc} provides a richly-annotated catalog of tools and datasets that can be processed in the NITRC computing environment. In OpenNeuro~\cite{markiewicz2021openneuro}, datasets complying to the BIDS data structure can be publicly shared and processed using BIDS apps.  Finally, the Neuroscience Information Framework (NIF~\cite{gardner2008neuroscience}) is a powerful search engine for neuroscience software and data. While all these platforms provide substantial services for data and tool sharing, they don't seem to include any system to assist users in the matching of pipelines and datasets. Matching relevant pipelines and datasets would also enable the automated triggering of data processing when new pipelines or datasets become available. 
 
 \section{Materials and Methods}
 
@@ -523,7 +523,7 @@ the threshold used to round predicted values to 1 (failed execution) or 2
 experts predictions by predicting execution outcomes using various
 thresholds in the fraction of experts predicting successful execution. 
 
-The area under curve (AUC) of our recommender system was 0.81, showing that
+The area under curve (AUC) of our recommender system was 0.83, showing that
 our model is significantly better than chance (AUC=0.5) and expert
 predictions (AUC=0.63). For instance, given a rounding threshold of 1.2
 (black dot in the ROC curve), out of 10 pipelines
@@ -550,7 +550,11 @@ types, data formats, and data semantic types. In practice, it is common for
 human experts to only master some parts of this environment. For example,
 the successful processing of BIDS datasets by BIDS applications requires
 datasets to pass BIDS validation, which can hardly be guessed from a
-high-level overview of the dataset. In addition, pipelines or data
+high-level overview of the dataset. 
+
+Moreover, when our experts were asked to predict the execution of pipeline-dataset pairs, they were not provided the provenance records that had been generated before, they completed the surveys only based on their previous knowledge and by considering the available description of pipelines and datasets on the CONP portal
+
+In addition, pipelines or data
 transfers may fail for technical reasons unknown to the experts. Automated
 recommender systems based on provenance therefore have a strong added value
 compared to human recommendations. 
