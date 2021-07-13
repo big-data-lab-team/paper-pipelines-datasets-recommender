@@ -243,11 +243,15 @@ DataLad, our system matches provenance records to particular datasets
 through file hashes. In addition, specific files from a given dataset can
 be downloaded on demand without having to download the entire dataset. 
 
- In some cases, minor adjustments such as file renamings or exclusions to the organization of BIDS datasets were performed to make them fully comply to the standard
- specification . We did not apply any type conversion, to preserve realistic
- usage scenarios for our recommender system. \begin{figure}
+ In some cases, minor adjustments such as file renamings or exclusions (on 8/22 of tested datasets) to the organization of BIDS datasets were performed to make them fully comply to the standard specification . We did not apply any type conversion, to preserve realistic
+ usage scenarios for our recommender system.
+ These modifications are likely to be harmless in the sense that we should remove some subjects or sessions, while format conversions could raise pernicious issues. For example left-right errors related to symmetry of the human body caused by lack of correctly recorded the spatial orientation in conversion from DICOM to NIfTI~\cite{li2016first}. 
+ 
+ \MM{Possible problems during DICOM to NIfTI conversion (page 22 of this paper)}
+ 
+ \begin{figure}
   \includegraphics[width=\columnwidth]{figures/Datasets Keyword.pdf}
-  \caption{Modalities of available datasets. Each dataset might have multiple keywords \TG{This figure takes too much space. Remove y label "Dataset Keyword"}}
+  \caption{Modalities of available datasets. Each dataset might have multiple keywords }
   \label{fig:datasets_modalities}
 \end{figure}
 
@@ -265,8 +269,8 @@ knowledge, some knowledge, good knowledge, expert knowledge. In the second
 survey (prediction survey), experts were ask to predict the execution
 outcome (success or failure) for all pipeline-dataset pairs in which they
 had indicated good or expert knowledge in the first survey for both the
-pipeline and the dataset. In both surveys, all the names of pipelines and datasets were clickable and with a link to their specific page on the CONP portal that the experts were able to see all the details about them, the forms for the surveys are available at~\cite{myPaperOnGithub}. The data for these surveys was collected between November 2020 and
-March 2021.
+pipeline and the dataset. In both surveys, all the names of pipelines and datasets were clickable and with a link to their specific page on the CONP portal that the experts were able to see all the details about them, the forms for the surveys are available at \href{https://github.com/mandana-mazaheri/Pipelines-datasets-recommender-paper/blob/master/data}{this github repository}. The data for these surveys was collected between November 2020 and March 2021.
+
 
 \subsection{Provenance records} 
 
@@ -312,8 +316,7 @@ commonly used: stochastic gradient descent and alternating least squares
 (ALS). We used ALS as implemented in the
 Spark Machine Learning library (spark.ml). 
 
-\TG{add a brief paragraph mentioning the availability of dataset and code
-on GitHub (and make sure that it is properly documented.)}
+All the 
 
 % -------------------------------------
 % The latent features will be calculated by optimizing the following equation \cite{hu2008collaborative} :
@@ -388,7 +391,7 @@ the motivation for an automated recommender system.
 \begin{figure}
 \centering
   \includegraphics[width=\columnwidth]{figures/Commented Success Percentage.pdf}
-  \caption{Experts confidence matrix. Shades of green represent the fraction of experts with good or advanced knowledge about the pipeline and dataset who predicted successful execution. Gray means no data.}
+  \caption{Experts confidence matrix. Shades of green represent the fraction of experts with good or advanced knowledge about the pipeline and dataset who predicted successful execution. Gray means no data. The average number of experts who were asked for prediction for pipeline-dataset pairs in this matrix is 1.39 \MM{should we keep it?! ;) LOL}}
   \label{fig:experts_matrix}
 \end{figure}
 % The gray cells represent pairs of pipelines and datasets that there is not any expert who knows about, ?\% of cases. 
@@ -588,7 +591,7 @@ on a given dataset with usable accuracy (AUC=0.8) in the context of the
 Canadian Open Neuroscience Platform. The performance achieved by our system
 outperforms
 human expert recommendations, presumably due to syntactical and
-infrastructural factors neglected by human experts. This recommender system is being integrated in CONP \MM{link to mockup on git} in which the recommended list of datasets or pipelines will be displayed on the CONP portal interface and available for the users. 
+infrastructural factors neglected by human experts. This recommender system is being integrated in CONP in which the recommended list of datasets or pipelines will be displayed on the CONP portal interface and available for the users, to see the mock-up for recommender interface on the CONP portal \href{https://github.com/mandana-mazaheri/Pipelines-datasets-recommender-paper/blob/master/result/mockup_for_recommender_on_portal.png}{ click here}. 
 
 Future work will focus on the deployment of such a system in production conditions, which will require dealing with less reliable provenance records.
 
