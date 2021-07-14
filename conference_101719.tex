@@ -12,6 +12,8 @@
 \usepackage{tabularx}
 \usepackage{xspace}
 \usepackage{subcaption}
+\usepackage{svg}
+\usepackage{amsmath}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -182,7 +184,7 @@ All these approaches assume the existence of an objective function such as F1 sc
 \subsection{Finding tools and datasets in neuroimaging}
 
 Several platforms have been developed to facilitate the sharing of tools and datasets 
-in neuroimaging. For instance, NITRC~\cite{kennedy2016nitrc} provides a richly-annotated catalog of tools and datasets that can be processed in the NITRC computing environment. In OpenNeuro~\cite{markiewicz2021openneuro}, datasets complying to the BIDS data structure can be publicly shared and processed using BIDS apps.  Finally, the Neuroscience Information Framework (NIF~\cite{gardner2008neuroscience}) is a powerful search engine for neuroscience software and data. While all these platforms provide substantial services for data and tool sharing, they don't seem to include any system to assist users in the matching of pipelines and datasets. Matching relevant pipelines and datasets would also enable the automated triggering of data processing when new pipelines or datasets become available. 
+in neuroimaging. For instance, NITRC~\cite{kennedy2016nitrc} provides a richly-annotated catalog of tools and datasets that can be processed in the NITRC computing environment. In OpenNeuro~\cite{markiewicz2021openneuro}, datasets complying to the BIDS data structure can be publicly shared and processed using BIDS apps.  Finally, the Neuroscience Information Framework (NIF~\cite{gardner2008neuroscience}) is a powerful search engine for neuroscience software and data. While all these platforms provide substantial services for data and tool sharing, they do not seem to include any system to assist users in the matching of pipelines and datasets. Matching relevant pipelines and datasets would also enable the automated triggering of data processing when new pipelines or datasets become available. 
 
 \section{Materials and Methods}
 
@@ -192,10 +194,17 @@ from provenance records created from previous pipeline executions.
 Figure~\ref{fig:method} presents an overview of our system that is detailed
 in the remainder of this section with our experimental methodology.
 
+% \begin{figure*}[htbp]
+%   \centering
+%   \includesvg{figures/methd.svg}
+%   \caption{svg image}
+% \end{figure*}
+
+
 \begin{figure*}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/Methodology.pdf}%Methodology_May17th.png}
-  \caption{Overview of our recommender system }
+  \caption{Overview of our recommender system \TG{fix figure quality} \TG{change recommender system to recommender engine}}
   \label{fig:method}
   \end{figure*}  
 
@@ -203,8 +212,9 @@ in the remainder of this section with our experimental methodology.
 \subsection{Data processing pipelines} 
 Consistently with our motivating use case, we focused on the 64
 neuroscience pipelines available in the CONP as of October
-2020. Figure~\ref{fig:pipelines_tags} shows an overview of the type of data
-and analyses supported by these pipelines. These pipelines are command-line
+2020. 
+The available pipelines have 23 different tags which shows an overview of the type of data
+and analyses supported by these pipelines. The most popular tags are "neuroinformatics", "mri", "fmri", "bioinformatics" and "dmri", each pipeline can have multiple tags. These pipelines are command-line
 tools described by Boutiques descriptors~\cite{glatard2018boutiques} and
 containerized using Docker or Singularity, which makes them portable across
 a wide range of infrastructures, including local workstations, clusters,
@@ -217,21 +227,20 @@ of the execution process including the pipeline DOI, input and output file
 hashes, parameter values, and exit code. Our recommendation system uses
 such provenance records to track the outcome of pipeline executions on a
 given dataset.
-\begin{figure} 
-  \includegraphics[width=\columnwidth]{figures/Pipelines Tag.pdf}
-  \caption{Tags of available pipelines, each pipeline might have multiple tags}
-  \label{fig:pipelines_tags}
-\end{figure}
+% \begin{figure} 
+%   \includegraphics[width=\columnwidth]{figures/Pipelines Tag.pdf}
+%   \caption{Tags of available pipelines, each pipeline might have multiple tags}
+%   \label{fig:pipelines_tags}
+% \end{figure}
 
 
 
 \subsection{Datasets} 
 
 We used the 42 datasets available in the CONP as of October 2020,
-representing a total of 2807267 files, 3078 GB, and 6330 subjects.
-These datasets included neuroimaging, transcriptomics, genomics, and other
-related data modalities coming from various sources distributed in Canada
-and abroad (Figure~\ref{fig:datasets_modalities}). Datasets are made available through DataLad~\cite{datalad2021},
+representing a total of 2807267 files, 3078~GB, and 6330 subjects.
+These datasets are coming from various sources distributed in Canada and abroad and include different data modalities that are mostly "brain imaging", "human pain", "mri", "neuroimaging" and "structural mri". \MM{we illustrated the keywords not modalities}
+ Datasets are made available through DataLad~\cite{datalad2021},
 a Git-based framework that provides a uniform and version-controlled view of
 distributed storage.
 
@@ -243,17 +252,14 @@ DataLad, our system matches provenance records to particular datasets
 through file hashes. In addition, specific files from a given dataset can
 be downloaded on demand without having to download the entire dataset. 
 
- In some cases, minor adjustments such as file renamings or exclusions (on 8/22 of tested datasets) to the organization of BIDS datasets were performed to make them fully comply to the standard specification . We did not apply any type conversion, to preserve realistic
+ In some cases, minor adjustments such as file renamings or exclusions (on 8/22 of tested datasets) to the organization of BIDS datasets were performed to make them fully comply to the standard specification and reduce the processing time of our experiments by excluding some subjects. We did not apply any type conversion since in neuroimaging they are known to create issues when not done properly~\cite{li2016first}. 
  usage scenarios for our recommender system.
- These modifications are likely to be harmless in the sense that we should remove some subjects or sessions, while format conversions could raise pernicious issues. For example left-right errors related to symmetry of the human body caused by lack of correctly recorded the spatial orientation in conversion from DICOM to NIfTI~\cite{li2016first}. 
  
- \MM{Possible problems during DICOM to NIfTI conversion (page 22 of this paper)}
- 
- \begin{figure}
-  \includegraphics[width=\columnwidth]{figures/Datasets Keyword.pdf}
-  \caption{Modalities of available datasets. Each dataset might have multiple keywords }
-  \label{fig:datasets_modalities}
-\end{figure}
+%  \begin{figure}
+%   \includegraphics[width=\columnwidth]{figures/Datasets Keyword.pdf}
+%   \caption{Modalities of available datasets. Each dataset might have multiple keywords }
+%   \label{fig:datasets_modalities}
+% \end{figure}
 
 
 \subsection{Expert Reference}
@@ -276,7 +282,7 @@ pipeline and the dataset. In both surveys, all the names of pipelines and datase
 
 Similar to pipeline descriptors, Boutiques provenance records can be
 published to Zenodo, which makes them publicly and permanently accessible.
-We created provenance records for each pipeline-dataset pair for which at least one expert predicted successful execution. To generate a provenance record we execute a pipeline using an invocation file including all required parameters for that pipeline. The instructions for generating the invocations are available through boutiques for each pipeline. We mostly use default parameters and create minimal invocations, however, to execute some pipelines we needed editorial choices or domain experts' assistance to generate a working invocation file. Once a valid invocation is generated for a pipeline, we can use the invocation and execute the pipeline through boutiques command line.
+We created provenance records for each pipeline-dataset pair for which at least one expert predicted successful execution. To generate a provenance record we executed a pipeline using an invocation file including all required parameters for that pipeline. The instructions for generating the invocations are available through Boutiques for each pipeline. We mostly used default parameters and created minimal invocations, however, to execute some pipelines we requested domain experts' assistance to generate a working invocation file.
 The provenance records were entered in a database together with the file hashes of all datasets retrieved using DataLad. From this database, we generated (pipeline,
 dataset, execution outcome) triplets to use in our recommender system.
 
@@ -316,7 +322,6 @@ commonly used: stochastic gradient descent and alternating least squares
 (ALS). We used ALS as implemented in the
 Spark Machine Learning library (spark.ml). 
 
-All the 
 
 % -------------------------------------
 % The latent features will be calculated by optimizing the following equation \cite{hu2008collaborative} :
@@ -368,7 +373,7 @@ We evaluated our approach in two different ways. First,
 we compared the expert predictions to 
 real execution outcomes extracted from provenance records.
 Second, we evaluated 
-the accuracy of our recommender system through 10-fold cross validation. All of the generated provenance records are stored and accessible at~\cite{provenanceRecords}
+the accuracy of our recommender system through 10-fold cross validation. All of the generated provenance records are stored and accessible at~\cite{provenanceRecords} with the code to generate all the results figures.
 
 \subsection{Expert predictions vs real executions}
 
@@ -377,7 +382,7 @@ the accuracy of our recommender system through 10-fold cross validation. All of 
 Figure~\ref{fig:experts_matrix} shows expert predictions of
 pipeline-dataset execution outcomes. Only the 32/64 pipelines for which at
 least one dataset was predicted to be successfully processed by at least
-one expert are represented. Pipeline names are reported in
+one expert are represented. The average number of expert predictions by pipeline-dataset pair was 1.39. Pipeline names are reported in
 Table~\ref{tab:pipeline_names}. Similarly, only the 22/42 datasets for which
 at least one pipeline was predicted to be successfully executed by at least
 one expert are represented. Dataset names are in Table~\ref{tab:data_names}. Out of a total of 704 pipeline-dataset pairs,
@@ -388,22 +393,26 @@ any expert (gray cells), and the outcome of the remaining ones was
 predicted as successful by some experts and as failed by other experts. The
 large fraction of pipeline-dataset pairs unknown to any expert reinforces
 the motivation for an automated recommender system.
-\begin{figure}
+
+\begin{figure*}
 \centering
-  \includegraphics[width=\columnwidth]{figures/Commented Success Percentage.pdf}
-  \caption{Experts confidence matrix. Shades of green represent the fraction of experts with good or advanced knowledge about the pipeline and dataset who predicted successful execution. Gray means no data. The average number of experts who were asked for prediction for pipeline-dataset pairs in this matrix is 1.39 \MM{should we keep it?! ;) LOL}}
+\begin{subfigure}{.48\textwidth}  \includegraphics[width=\columnwidth]{figures/Commented Success Percentage.pdf}
+  \caption{Experts predictions. Shades of green represent the fraction of experts who predicted successful execution. Gray means no data.}
   \label{fig:experts_matrix}
-\end{figure}
+\end{subfigure} \hfill
+\begin{subfigure}{.48\textwidth}
+  \includegraphics[width=\columnwidth]{figures/Pipeline Execution Level 2.pdf}
+  \caption{Pipeline outcomes. Green represents successful execution, red represents failures and gray represents no data.}
+  \label{fig:execution_matrix}
+\end{subfigure}
+\caption{Expert predictions vs real execution outcomes.}
+\end{figure*}
 % The gray cells represent pairs of pipelines and datasets that there is not any expert who knows about, ?\% of cases. 
 % The rest of the cells represent the percentage of experts 
 % % among all experts that know the pipeline and the dataset corresponding to that cell
 % that predicted a successful execution for a pair of pipeline and dataset. The color range is dark red to green and white in the middle. To specify more, a dark red cell means 0\% of experts who know the pipeline and the dataset corresponding to that cell, predicted a successful execution; it goes whiter in the middle when the rate of successful and failure predictions get closer to 50\% and ends in green as the successful prediction rate grows up to 100\%. 
 
-\begin{figure}%[width=1.25\columnwidth]
-  \includegraphics[width=\columnwidth]{figures/Pipeline Execution Level 2.pdf}
-  \caption{Pipeline execution matrix. Green represents successful execution, red represents failures and gray represents pipeline-dataset pairs that were not executed. \TG{remove colorbar and whitespace around the matrix. Use same layout as in Fig 4.}}
-  \label{fig:execution_matrix}
-\end{figure}
+
 
 Figure~\ref{fig:execution_matrix} shows the actual execution outcome for
 all the pipeline-dataset pairs for which at least one expert predicted a
@@ -425,14 +434,12 @@ seem to be largely unreliable. Note that we used the experts' predictions as a b
   \label{fig:confidence_swarm}
 \end{figure}
 
-\begin{figure}
-  \includegraphics[width=\columnwidth]{figures/Fraction of experts.pdf}
-  \caption{ Fraction of experts predicting successful executions for the executed pairs}
-  \label{fig:fraction_experts}
-\end{figure}
-
-
-\WIP{Comment on Figure~\ref{fig:fraction_experts} }
+% \begin{figure}
+%   \includegraphics[width=\columnwidth]{figures/Fraction of experts.pdf}
+%   \caption{ Fraction of experts predicting successful executions for the executed pairs}
+%   \label{fig:fraction_experts}
+% \end{figure}
+% \TG{Comment on Figure~\ref{fig:fraction_experts} }
 
 
 % \begin{figure}
@@ -467,18 +474,17 @@ contain anatomical images in the MINC format.
     \end{center}
 \end{table}
 
-%  Dependencies between pipelines and the
-\begin{figure*}[hbt!]
-\centering%\rule{0.8\textwidth}{0.3\textwidth}
-\includegraphics[width=\textwidth]{figures/Pipeline dependencies.pdf}
-\caption{Types of pipeline dependencies. In Type D, the tested pipeline 
-is considered not applicable to the tested dataset.}
-\label{fig:pipeline_dependencies}
-\end{figure*}
+% %  Dependencies between pipelines and the
+% \begin{figure*}[hbt!]
+% \centering%\rule{0.8\textwidth}{0.3\textwidth}
+% \includegraphics[width=\textwidth]{figures/Pipeline dependencies.pdf}
+% \caption{Types of pipeline dependencies. In Type D, the tested pipeline 
+% is considered not applicable to the tested dataset.}
+% \label{fig:pipeline_dependencies}
+% \end{figure*}
 In addition, five pipelines ($P_{8}$, $P_{17}$, $P_{19}$, $P_{20}$ and
 $P_{27}$) failed due to unresolved pre-processing requirements. We
-identified four types of dependencies between pipelines
-(Figure~\ref{fig:pipeline_dependencies}). Type A refers to pipelines such
+identified four types of dependencies between pipelines. Type A refers to pipelines such
 as $P_{24}$ (fsl-bet) or $P_{23}$ (fsl-anat) that can be executed directly
 on the tested dataset. Type B refers to pipelines that require the tested
 dataset as well as the results of the application of another pipeline on
@@ -552,7 +558,10 @@ the successful processing of BIDS datasets by BIDS applications requires
 datasets to pass BIDS validation, which can hardly be guessed from a
 high-level overview of the dataset. 
 
-Moreover, when our experts were asked to predict the execution of pipeline-dataset pairs, they were not provided the provenance records that had been generated before, they completed the surveys only based on their previous knowledge and by considering the available description of pipelines and datasets on the CONP portal
+Also, if syntax and infrastructure works, it doesn’t necessarily mean that the result makes sense and does not guarantee the semantic one. As it is possible to have executions that succeeded in practice while there has not been a successful prediction for or they were supposed to fail since in practice they work but they produce meaning less results. \MM{we don't have explicit failure predictions}
+
+
+Moreover, when our experts were asked to predict the execution of pipeline-dataset pairs, they were not provided the provenance records that had been generated before, they completed the surveys only based on their previous knowledge and by considering the available description of pipelines and datasets on the CONP portal. \TG{Tristan should revise the previous two paragraphs}
 
 In addition, pipelines or data
 transfers may fail for technical reasons unknown to the experts. Automated
@@ -612,6 +621,7 @@ sub-parts corresponding to different subjects or data types. A recommender
 system could be designed to recommend analyses for such sub-parts, 
 resulting in more specific recommendations.
 
+\TG{Tristan to revise the conclusion}
 
 
 % \TG{Summarize in 3-4 sentences what you did. Summarize the key findings: recommending pipelines and datasets from previous execution records is feasible. Besides, it is preferable than relying on experts knowledge, as it gives a more accurate technical prediction based on actual data. Our prototype can be reused and adapted to many different platforms.}
