@@ -204,7 +204,7 @@ in the remainder of this section with our experimental methodology.
 \begin{figure*}[ht]
   \centering
   \includegraphics[width=\textwidth]{figures/Methodology.pdf}%Methodology_May17th.png}
-  \caption{Overview of our recommender system \TG{fix figure quality} }
+  \caption{Overview of our recommender system}
   \label{fig:method}
   \end{figure*}  
 
@@ -219,7 +219,7 @@ tools described by Boutiques descriptors~\cite{glatard2018boutiques} and
 containerized using Docker or Singularity, which makes them portable across
 a wide range of infrastructures, including local workstations, clusters,
 and clouds~\cite{kiar2019serverless}. Each pipeline descriptor is stored on
-the Zenodo research archive~\cite{zenodo} and identified by a permanent Digital Object
+the Zenodo research archive~\cite{https://doi.org/10.25495/7gxk-rd71} and identified by a permanent Digital Object
 Identifier (DOI). Through the Boutiques command line, the pipelines can be
 validated, installed, published, and executed. When the execution
 completes, Boutiques creates a JSON provenance record containing a summary
@@ -283,8 +283,7 @@ pipeline and the dataset. In both surveys, all the names of pipelines and datase
 Similar to pipeline descriptors, Boutiques provenance records can be
 published to Zenodo, which makes them publicly and permanently accessible.
 We created provenance records for each pipeline-dataset pair for which at least one expert predicted successful execution. To generate a provenance record we executed a pipeline using an invocation file including all required parameters for that pipeline. The instructions for generating the invocations are available through Boutiques for each pipeline. We mostly used default parameters and created minimal invocations, however, to execute some pipelines we requested domain experts' assistance to generate a working invocation file.
-The provenance records were entered in a database together with the file hashes of all datasets retrieved using DataLad. From this database, we generated (pipeline,
-dataset, execution outcome) triplets to use in our recommender system.
+The provenance records were entered in a database together with the file hashes of all datasets retrieved using DataLad. From this database, we generated (pipeline, dataset, execution outcome) triplets to use in our recommender system.
 
 
 % ------
@@ -373,7 +372,7 @@ We evaluated our approach in two different ways. First,
 we compared the expert predictions to 
 real execution outcomes extracted from provenance records.
 Second, we evaluated 
-the accuracy of our recommender system through 10-fold cross validation. All of the generated provenance records are stored and accessible at~\cite{provenanceRecords} with the code to generate all the results figures.
+the accuracy of our recommender system through 10-fold cross validation. All of the generated provenance records are stored and accessible \href{https://github.com/mandana-mazaheri/conp-pipeline-examples/tree/a2c80c91c50776dfc831f89d294e3cb862a3d9a6}{here}, also the code to generate all the results figures is \href{https://github.com/mandana-mazaheri/Pipelines-datasets-recommender-paper/blob/master/scripts/scientificRecommender_v4.py}{here}.
 
 \subsection{Expert predictions vs real executions}
 
@@ -549,16 +548,12 @@ A more random utility matrix would obviously be more difficult to predict.
 
 The performance of the proposed recommender system is substantially higher
 than chance and expert predictions. Predicting the successful execution
-outcome of a pipeline on a given dataset is a difficult task for a human
-expert as it requires a comprehensive knowledge and understanding of the
-technical infrastructure, pipeline syntactical requirements, analysis
-types, data formats, and data semantic types. In practice, it is common for
-human experts to only master some parts of this environment. For example,
+outcome of a pipeline on a given dataset is a difficult task for a human expert as it requires a comprehensive knowledge and understanding of the technical infrastructure, pipeline syntactical requirements, analysis types, data formats, and data semantic types. In practice, it is common for human experts to only master some parts of this environment. For example,
 the successful processing of BIDS datasets by BIDS applications requires
 datasets to pass BIDS validation, which can hardly be guessed from a
 high-level overview of the dataset. 
 
-Also, if syntax and infrastructure works, it doesn’t necessarily mean that the result makes sense and does not guarantee the semantic one. As it is possible to have executions that succeeded in practice while there has not been a successful prediction for or they were supposed to fail since in practice they work but they produce meaning less results. \MM{we don't have explicit failure predictions}
+Also, if syntax and infrastructure works, it does not necessarily mean that the result makes sense and does not guarantee the semantic one. As it is possible to have executions that succeeded in practice while there has not been a successful prediction for or they were supposed to fail since in practice they work but they produce meaning less results. \MM{we don't have explicit failure predictions}
 
 
 Moreover, when our experts were asked to predict the execution of pipeline-dataset pairs, they were not provided the provenance records that had been generated before, they completed the surveys only based on their previous knowledge and by considering the available description of pipelines and datasets on the CONP portal. \TG{Tristan should revise the previous two paragraphs}
@@ -600,7 +595,7 @@ this issue~\cite{hu2008collaborative}.
 \section{Conclusion}
 
 Collaborative filtering predicts the execution outcome of a given pipeline
-on a given dataset with usable accuracy (AUC=0.8) in the context of the
+on a given dataset with usable accuracy (AUC=0.83) in the context of the
 Canadian Open Neuroscience Platform. The performance achieved by our system
 outperforms
 human expert recommendations, presumably due to syntactical and
