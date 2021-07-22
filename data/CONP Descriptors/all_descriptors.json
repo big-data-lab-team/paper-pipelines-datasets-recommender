@@ -1083,7 +1083,7 @@
         "DESCRIPTION": "Compute Scalp Coupling Index and mark BIDS status",
         "PUBLICATION DATE": "2021-07-20",
         "DEPRECATED": false,
-        "DOWNLOADS": 47.0,
+        "DOWNLOADS": 48.0,
         "AUTHOR": "Robert Luke",
         "VERSION": "v0.2.2",
         "DOI": "10.5281/zenodo.5115274",
