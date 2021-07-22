@@ -397,11 +397,11 @@ the motivation for an automated recommender system.
 
 \begin{figure*}
 \centering
-\begin{subfigure}{.53\textwidth}  \includegraphics[width=\columnwidth]{figures/Commented Success Percentage.pdf}
+\begin{subfigure}{.49\textwidth}  \includegraphics[width=\columnwidth]{figures/Commented Success Percentage.pdf}
   \caption{Experts predictions. Shades of green represent the fraction of experts who predicted successful execution. Gray means no data.\GK{}{Label axes, colourbar, and add plot title}}
   \label{fig:experts_matrix}
 \end{subfigure} \hfill
-\begin{subfigure}{.45\textwidth}
+\begin{subfigure}{.49\textwidth}
   \includegraphics[width=\columnwidth]{figures/Pipeline Execution Level 2.pdf}
   \caption{Pipeline outcomes. Green represents successful execution, red represents failures and gray represents no data.\GK{}{Label axes, colourbar, and add plot title. Should be the same height as the other plot.}}
   \label{fig:execution_matrix}
@@ -430,7 +430,7 @@ for successful ones (p \textless 0.002, Figure
 seem to be largely unreliable. Note that we used the experts' predictions as a baseline for prediction performance comparison rather than a ground truth on the execution outcome of a given pipeline on a given dataset. 
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{figures/Confidence Swarm Experts.pdf}
+  \includegraphics[width=\columnwidth]{figures/Confidence Stacked Bar Experts.pdf}
   \caption{Expert confidence by actual execution outcome.\GK{}{This plot is unclear to me... Start with labelling both axes more clearly, but based on the clear quantization of the data, consider comparing stacked histograms instead of box plots?}}
   \label{fig:confidence_swarm}
 \end{figure}
@@ -542,7 +542,7 @@ A more random utility matrix would obviously be more difficult to predict.
 \begin{figure}
 \centering
   \includegraphics[width=\columnwidth]{figures/ROC Curve.pdf}
-  \caption{ROC curves of experts and recommender system predictions. \GK{}{change the colour of one of the lines, expert and recommender are too similar.}}
+  \caption{ROC curves of experts and recommender system predictions.}
   \label{fig:roc-curve}
 \end{figure}
 
